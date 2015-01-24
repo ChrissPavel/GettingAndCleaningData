@@ -22,7 +22,7 @@ y_Tst<-read.table("./test/y_test.txt",col.names=c("Activity"))
 #Changing the feature names from second column of feats
 #these are going to be our column names for the required data frame.
 #For this reason i'm going to replace minus and comma by underscore, and remove parenthesis, so names
-#of columns were readable.
+#of columns were readable.(point 4.)
 
 feats[,2]<-gsub("-|\\,","_",feats[,2]) #changing minus or comma by underscore
 feats[,2]<-gsub("\\(|\\)","",feats[,2]) #removing parenthesis,here \\ in quotes of first argumet of gsub,for specific strings
@@ -40,21 +40,32 @@ data<-data[-1,] #removing first row of names, we need it no more
 data$Subject<-unlist(rbind(X_subTr,X_subTst)) #adding Subject column as a new variable 
 data$Activity<-unlist(rbind(y_Tr,y_Tst)) #adding Activity column as a new variable
 
-#Renaming Subject and Activity to its corresponing names
+#Renaming Subject and Activity to its corresponing names(performing point 3.)
+#using mapvalues() from "plyr" package
 
 data$Activity <- mapvalues(data$Activity, from = 1:6, 
                            to = c("WALKING", "WALKING_UPSTAIRS","WALKING_DOWNSTAIRS",
                                   "SITTING","STANDING","LAYING"))
-
-
 #
 #dim(data)
 #[1] 10299   563
-#We have 10299 rows and 563 coolumns
+#We have 10299 rows and 563 columns
 
 #Finally, choose the indexes of columns which has mean or standard deviation 
 #Additional Im taking the subject (index 562) and activity (index 563) column
+#(point 2.)
 
 
 ind<-grep("Mean|mean|std",feats[,2])
 data_Result<-data[,c(ind,562,563)]
+
+#Converting character columns to numeric columns
+data_Result[,1:86]<-sapply(data_Result[,1:86],as.numeric)
+
+#Using aggregate to find mean of each column variable from point 2 by Subject and Activity 
+tidy_Data<-aggregate(data_Result[,1:86],list(Activity=data_Result$Activity,
+                                             Subject=data_Result$Subject),mean)
+
+#My tidy data consist on 180 registers with 88 columns
+#dim(tidy_Data)
+#[1] 180  88
