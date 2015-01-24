@@ -69,3 +69,7 @@ tidy_Data<-aggregate(data_Result[,1:86],list(Activity=data_Result$Activity,
 #My tidy data consist on 180 registers with 88 columns
 #dim(tidy_Data)
 #[1] 180  88
+
+#Saving tidy_Data to a txt file "tidy_Data.txt"
+write.table(tidy_Data,"tidy_Data.txt",row.name=FALSE)
+
