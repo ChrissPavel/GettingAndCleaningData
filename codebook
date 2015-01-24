@@ -1,0 +1,17 @@
+The variables for tidy_Data come from file features.txt. 
+
+There were some changes I´ve done to make them readable from original, that is described at run_analysis.R
+
+Variable Subject corresponds to the number of subjet sampled.
+
+Variable Activity corresponds to one of the differents positions: 
+WALKING WALKING_UPSTAIRS  WALKING_DOWNSTAIRS SITTING STANDING  LAYING
+
+Variables with string "angle" in its name are measured in radians/second. 
+
+The rest of the variables are the acceleration signal from the smartphone accelerometer which are 
+measured in standard gravity units 'g' in its corresponding axis. 
+
+
+
+
