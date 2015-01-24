@@ -1,5 +1,7 @@
 # GettingAndCleaningData
 Getting and Cleaning Data
+
+
 First of all, My run_analysis.R code reads all txt files: features, 
 activity_labels, and files,  subject_ X_ and y_ for train and test
 
